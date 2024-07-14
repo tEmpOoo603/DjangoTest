@@ -3,6 +3,17 @@ from django.shortcuts import render
 
 
 def index(request):
-    return HttpResponse('Home page')
+    user_info = {
+        'is_authenticated':False,
+        'name':'Efim',
+        'pass':'123',
+        'cars':['BMW','AUDI','MERCEDES'],
+        'parents':{'mom':'Tatiana'},
+    }
+    return render(request, 'main/index.html', context=user_info)
 def about(request):
-    return HttpResponse('about us')
+    data = {
+        'title':'О нас',
+        'content':'Здесь вы найдётся информацию о нас!',
+    }
+    return render(request, 'main/about.html', context=data)

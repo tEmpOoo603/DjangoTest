@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация</title>
+</head>
+<body>
+<h3>Информация о пользователе:</h3>
+{% if is_authenticated %}
+<h2>{{ name }}</h2>
+<h2>{{ cars.0 }}</h2>
+<h2>{{ parents.mom }}</h2>
+
+{% else %}
+<h1>Пошёл нахуй отсюда</h1>
+
+{% endif %}
+</body>
+</html>
