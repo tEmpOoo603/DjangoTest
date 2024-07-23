@@ -3,11 +3,9 @@ from django.shortcuts import render
 from goods.models import Categories
 
 def index(request):
-    categories = Categories.objects.all()
     user_info = {
         'title': 'Home_Made',
         'content': 'Магазин мебели HOME_MADE',
-        'categories':categories,
     }
     return render(request, 'main/index.html', context=user_info)
 
