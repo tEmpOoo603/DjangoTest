@@ -26,7 +26,7 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class ProfileForm(UserChangeForm):
-
+    image = forms.ImageField(required=False)
     class Meta:
         model = User
         fields = [
