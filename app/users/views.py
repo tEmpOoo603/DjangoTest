@@ -1,8 +1,8 @@
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-
 from users.forms import UserLoginForm, UserRegistrationForm, ProfileForm
 
 
@@ -42,6 +42,7 @@ def registration(request):
     return render(request, 'users/registration.html', context=context)
 
 
+@login_required
 def profile(request):
     if request.method == 'POST':
         form = ProfileForm(data=request.POST, instance=request.user, files=request.FILES)
@@ -51,12 +52,13 @@ def profile(request):
     else:
         form = ProfileForm(instance=request.user)
     context = {
-        'form':form,
+        'form': form,
         'title': 'Страница профиля'
     }
     return render(request, 'users/profile.html', context=context)
 
 
+@login_required
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse("main:index"))
