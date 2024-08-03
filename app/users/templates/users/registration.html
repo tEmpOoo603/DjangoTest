@@ -18,11 +18,11 @@
                                     {% csrf_token %}
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
-                                                <label for="id_firstName" class="form-label">Имя*</label>
+                                                <label for="id_first_name" class="form-label">Имя*</label>
                                                 <input type="text"
                                                        value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
                                                        class="form-control"
-                                                       id="id_firstName"
+                                                       id="id_first_name"
                                                        name='first_name'
                                                        placeholder="Введите ваше имя"
                                                        required
@@ -32,11 +32,11 @@
                                                 {% endif %}
                                             </div>
                                             <div class="col-md-6 mb-3">
-                                                <label for="id_lastName" class="form-label">Фамилия*</label>
+                                                <label for="id_last_name" class="form-label">Фамилия*</label>
                                                 <input type="text"
                                                        value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}"
                                                        class="form-control"
-                                                       id="id_lastName"
+                                                       id="id_last_name"
                                                        name='last_name'
                                                        placeholder="Введите вашу фамилию"
                                                        required
