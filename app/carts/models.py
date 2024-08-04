@@ -7,7 +7,7 @@ from users.models import User
 
 class CartQueryset(models.QuerySet):
     def total_price(self):
-        return sum(cart.total_price() for cart in self)
+        return sum(cart.products_price() for cart in self)
 
     def total_quantity(self):
         if self:
@@ -22,13 +22,13 @@ class Cart(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
     session_key = models.CharField(max_length=32, null=True, blank=True)
 
-    objects = CartQueryset()
+    objects = CartQueryset().as_manager()
     class Meta:
         db_table='cart'
         verbose_name='Корзина'
         verbose_name_plural="Корзина"
 
-    def product_price(self):
+    def products_price(self):
         return round(self.product.sell_price() * self.quantity, 2)
 
     def __str__(self):
