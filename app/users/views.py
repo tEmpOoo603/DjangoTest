@@ -52,7 +52,7 @@ def profile(request):
         form = ProfileForm(data=request.POST, instance=request.user, files=request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request,'Профиль успешно обновлён')
+            messages.success(request, 'Профиль успешно обновлён')
             return HttpResponseRedirect(reverse('user:profile'))
     else:
         form = ProfileForm(instance=request.user)
@@ -61,6 +61,10 @@ def profile(request):
         'title': 'Страница профиля'
     }
     return render(request, 'users/profile.html', context=context)
+
+
+def user_cart(request):
+    return render(request, 'users/user_cart.html')
 
 
 @login_required
