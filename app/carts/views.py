@@ -19,7 +19,9 @@ def cart_add(request, product_slug):
             Cart.objects.create(user=request.user, product=product, quantity=1)
     return redirect(request.META['HTTP_REFERER'])
 
-def cart_remove(request, product_slug):
-    return HttpResponseRedirect(reverse('main:index'))
+def cart_remove(request, product_id):
+    cart = Cart.objects.get(id=product_id)
+    cart.delete()
+    return redirect(request.META['HTTP_REFERER'])
 def cart_change(request, product_slug):
     pass
