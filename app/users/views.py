@@ -57,29 +57,6 @@ class UserRegistrationView(CreateView):
         messages.success(self.request, f'{user.username}, Вы успешно зарегистрированы и вошли в аккаунт')
         return HttpResponseRedirect(self.get_success_url())
 
-def registration(request):
-    if request.method == 'POST':
-        form = UserRegistrationForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-
-            session_key = request.session.session_key
-
-            user = form.instance
-            auth.login(request, user)
-
-            if session_key:
-                Cart.objects.filter(session_key=session_key).update(user=user)
-
-            messages.success(request, f'{user.username}, Вы вошли в аккаунт')
-            return HttpResponseRedirect(reverse('main:index'))
-    else:
-        form = UserRegistrationForm()
-    context = {
-        'form': form,
-        'title': 'Страница регистрации',
-    }
-    return render(request, 'users/registration.html', context=context)
 
 class UserProfileView(LoginRequiredMixin,UpdateView):
     template_name = 'users/profile.html'
@@ -101,7 +78,7 @@ class UserProfileView(LoginRequiredMixin,UpdateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Home - Кабинет'
         context['orders'] = (Order.objects.filter(user=self.request.user)
-              .prefetch_related(Prefetch('orderitem_set',queryset=OrderItem.objects.select_related('product')))
+              .prefetch_related(Prefetch('orderitem_set',queryset=OrderItem.objects.select_related('product').select_related('product__category')))
               .order_by('-id'))
         return context
 
